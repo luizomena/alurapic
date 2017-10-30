@@ -1,0 +1,50 @@
+<div class="page-header text-center">
+    <h1>{{foto.titulo}}</h1>
+</div>
+
+<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+
+<form novalidate name="formulario" class="row" ng-submit="submeter()">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Título</label>
+            <input name="titulo" class="form-control" ng-model="foto.titulo" required ng-maxlength="20">
+            <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.titulo.$error.required">
+                * Título obrigatório
+            </span>
+            <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.titulo.$error.maxlength">
+                * Máximo de 20 caractéres permitidos
+            </span>
+        </div>
+        <div class="form-group">
+            <label>URL</label>
+            <input name="url" class="form-control" ng-model="foto.url" required>
+            <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.titulo.$error.required">
+                * URL obrigatório
+            </span>
+        </div>
+        <div class="form-group">
+            <label>Descrição</label>
+            <textarea name="descricao" class="form-control" ng-model="foto.descricao">
+            </textarea>
+        </div>
+        <div class="form-group">
+            <label>Tipo</label>
+            <select name="tipo" class="form-control" required ng-controller="TiposController" ng-model="foto.tipo" ng-options="tipo._id as (tipo.nome | uppercase) for tipo in tipos">
+                <option value="">Escolha um tipo</option>
+            </select>
+            <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.tipo.$error.required">
+                * Tipo obrigatório
+            </span>
+        </div>
+
+        <button type="submit" class="btn btn-success" ng-disabled="formulario.$invalid">
+            Salvar
+        </button>
+         <a href="/" class="btn btn-primary" meu-foco>Voltar</a>
+        <hr>
+    </div>
+    <div class="col-md-6">
+        <minha-foto titulo="{{foto.titulo}}" url="{{foto.url}}"></minha-foto>
+    </div>
+</form>
